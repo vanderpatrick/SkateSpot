@@ -2,8 +2,8 @@ import { Container } from "react-bootstrap";
 import styles from "./App.module.css";
 import NavBar from "./components/NavBar";
 import { Route, Switch } from "react-router-dom";
-import SignUp from "./Pages/SignUp";
-import SignIn from "./Pages/SignIn";
+import SignUp from "./Pages/registrations/SignUp";
+import SignIn from "./Pages/registrations/SignIn";
 
 function App() {
   return (
