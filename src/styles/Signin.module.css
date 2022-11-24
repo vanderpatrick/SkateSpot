@@ -13,3 +13,13 @@
 .FormButton {
     margin-top: 50px;
 }
+
+.Link {
+    text-decoration: none;
+    color: black;
+}
+
+.Link:hover {
+    color:rgb(160, 158, 158);
+    transition: ease-in-out 0.1s;
+}

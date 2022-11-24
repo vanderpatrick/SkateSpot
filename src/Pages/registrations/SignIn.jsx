@@ -3,9 +3,11 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import styles from "../../styles/Signin.module.css";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import { useSetCurrentuser } from "../../contexts/CurrentUserContext";
 
 const SignIn = () => {
+  const setCurrentUser = useSetCurrentuser()
   const [signInData, setsignIndata] = useState({
     usernmae: "",
     password: "",
@@ -23,7 +25,8 @@ const SignIn = () => {
   const handleSubmit = async (event) => {
     event.preventDefault()
     try{
-      await axios.post("/dj-rest-auth/login/", signInData)
+      const {data} = await axios.post("/dj-rest-auth/login/", signInData)
+      setCurrentUser(data.user)
       history.push("/")
     }catch(err){
       console.log(err)
@@ -54,6 +57,9 @@ const SignIn = () => {
           onChange={handleChange}
           placeholder="Enter password"
         />
+      </Form.Group>
+      <Form.Group >
+        <Link className={`${styles.Link}`}>Dont have an account ? register now!</Link>
       </Form.Group>
       <Button className={styles.FormButton} type="submit">
         Submit
