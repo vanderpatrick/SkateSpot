@@ -36,7 +36,7 @@ const SignUp = () => {
         Welcome to skateSpot please fill in your info
       </h1>
       <Form.Group className="mb-3" controlId="formBasicEmail">
-        <Form.Label>Email address</Form.Label>
+        <Form.Label>Email address :</Form.Label>
         <Form.Control
           type="text"
           name="username"
@@ -47,7 +47,7 @@ const SignUp = () => {
       </Form.Group>
 
       <Form.Group className="mb-3">
-        <Form.Label>Password</Form.Label>
+        <Form.Label>Password :</Form.Label>
         <Form.Control
           type="password"
           name="password1"
@@ -57,7 +57,7 @@ const SignUp = () => {
         />
       </Form.Group>
       <Form.Group className="mb-3">
-        <Form.Label>Password</Form.Label>
+        <Form.Label>Repeat Password :</Form.Label>
         <Form.Control
           type="password"
           name="password2"
