@@ -4,12 +4,12 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import styles from "../styles/NavBar.module.css";
 import { NavLink } from "react-router-dom";
+import Avatar from "./Avatart";
 import {
   useCurrentuser,
   useSetCurrentuser,
 } from "../contexts/CurrentUserContext";
 import axios from "axios";
-import { Button } from "react-bootstrap";
 
 const NavBar = () => {
   const Currentuser = useCurrentuser();
@@ -25,7 +25,20 @@ const NavBar = () => {
   };
 
   const LogginIcons = (
-   <></> 
+    <>
+      <NavLink onClick={handleSignOut} to="/signin" className={styles.NavLink}>
+        <i className="fas fa-sign-in-alt"></i>Logout
+      </NavLink>
+      <NavLink to="/favorites" className={styles.NavLink}>
+        <i className="fas fa-sign-in-alt"></i>Favorites
+      </NavLink>
+      <NavLink
+        className={styles.NavLink}
+        to={`/profiles/${Currentuser?.profile_id}`}
+      >
+        <Avatar src={Currentuser?.profile_image} text="Profile" height={40} />
+      </NavLink>
+    </>
   );
 
   const LogedOutIcon = (
