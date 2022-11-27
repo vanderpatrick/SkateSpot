@@ -4,17 +4,19 @@ import NavBar from "./components/NavBar";
 import { Route, Switch } from "react-router-dom";
 import SignUp from "./Pages/registrations/SignUp";
 import SignIn from "./Pages/registrations/SignIn";
+import CreatePost from "./Pages/creations/CreatePost";
 
 function App() {
   return (
     <div className={styles.App}>
       <NavBar />
-      <Container className={styles.Main} >
+      <Container className={styles.Main}>
         <Switch>
-        <Route exact path="/" render={() => <h1>Home page</h1>} />
-        <Route exact path="/signin" render={() => <SignIn /> } />
-        <Route exact path="/signup" render={() => <SignUp />} />
-        <Route render={() => <p>Page not found!</p>} />
+          <Route exact path="/" render={() => <h1>Home page</h1>} />
+          <Route exact path="/signin" render={() => <SignIn />} />
+          <Route exact path="/signup" render={() => <SignUp />} />
+          <Route exact path="/posts/create" render={() => <CreatePost />} />s
+          <Route render={() => <p>Page not found!</p>} />
         </Switch>
       </Container>
     </div>

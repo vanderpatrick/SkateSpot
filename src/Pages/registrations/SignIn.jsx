@@ -9,7 +9,7 @@ import { useSetCurrentuser } from "../../contexts/CurrentUserContext";
 const SignIn = () => {
   const setCurrentUser = useSetCurrentuser()
   const [signInData, setsignIndata] = useState({
-    usernmae: "",
+    username: "",
     password: "",
   });
   const history = useHistory();
