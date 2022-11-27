@@ -3,12 +3,13 @@
     flex-direction: column;
     margin: 100px auto;
     justify-content: center;
-    height: 500px;
+    height: 600px;
     padding: 10px;
     border: 1px solid black;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
 }
+
 
 .FormButton {
     margin-top: 50px;
@@ -16,4 +17,10 @@
 
 .UploadSize > i {
     font-size: 100px;
+}
+
+.Image {
+    max-height: 40vh;
+  max-width: 100%;
+  object-fit: contain;
 }
