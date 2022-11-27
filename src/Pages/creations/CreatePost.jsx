@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Button from "react-bootstrap/Button";
+import { useHistory } from "react-router-dom";
 import styles from "../../styles/CreatePost.module.css";
 import { Row, Form, Col, Figure, Image } from "react-bootstrap";
+import { axiosReq } from "../../api/Axios";
 function PostCreateForm() {
+  const history = useHistory();
+  const imageInput = useRef(null);
+  const [errors, setErrors] = useState({});
   const [postData, setPostData] = useState({
     title: "",
     content: "",
@@ -16,6 +21,23 @@ function PostCreateForm() {
       [event.target.name]: event.target.value,
     });
   };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("image", imageInput.current.files[0]);
+    try {
+      const { data } = await axiosReq.post("posts/", formData);
+      history.push(`/posts/${data.id}`);
+    } catch (err) {
+      console.log(err);
+      if (err.response?.status !== 401) {
+        setErrors(err.response?.data);
+      }
+    }
+  };
 
   const handleChangeImage = (event) => {
     if (event.target.files.length) {
@@ -27,7 +49,7 @@ function PostCreateForm() {
     }
   };
   return (
-    <Form className={styles.FormContainer}>
+    <Form onSubmit={handleSubmit} className={styles.FormContainer}>
       <Row>
         <Col className="d-flex justify-content-center align-items-center">
           <Form.Group>
@@ -48,6 +70,7 @@ function PostCreateForm() {
               type="file"
               className="d-none"
               id="image-upload"
+              ref={imageInput}
               accept="image/*"
               onChange={handleChangeImage}
             />
@@ -76,7 +99,7 @@ function PostCreateForm() {
           </Form.Group>
         </Col>
       </Row>
-      <Button  className={styles.FormButton} type="submit">
+      <Button className={styles.FormButton} type="submit">
         Submit
       </Button>
     </Form>
