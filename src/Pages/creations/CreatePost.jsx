@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import Button from "react-bootstrap/Button";
 import { useHistory } from "react-router-dom";
 import styles from "../../styles/CreatePost.module.css";
-import { Row, Form, Col, Figure, Image } from "react-bootstrap";
+import { Row, Form, Col, Figure, Image,Alert } from "react-bootstrap";
 import { axiosReq } from "../../api/Axios";
 function PostCreateForm() {
   const history = useHistory();
