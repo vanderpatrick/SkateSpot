@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap";
 import Form from "react-bootstrap/Form";
 import styles from "../../styles/Signin.module.css";
 import axios from "axios";
@@ -7,7 +8,7 @@ import { Link, useHistory } from "react-router-dom";
 import { useSetCurrentuser } from "../../contexts/CurrentUserContext";
 
 const SignIn = () => {
-  const setCurrentUser = useSetCurrentuser()
+  const setCurrentUser = useSetCurrentuser();
   const [signInData, setsignIndata] = useState({
     username: "",
     password: "",
@@ -15,6 +16,7 @@ const SignIn = () => {
   const history = useHistory();
 
   const { username, password } = signInData;
+  const [errors, setErrors] = useState({});
 
   const handleChange = (event) => {
     setsignIndata({
@@ -23,15 +25,15 @@ const SignIn = () => {
     });
   };
   const handleSubmit = async (event) => {
-    event.preventDefault()
-    try{
-      const {data} = await axios.post("/dj-rest-auth/login/", signInData)
-      setCurrentUser(data.user)
-      history.push("/")
-    }catch(err){
-      console.log(err)
+    event.preventDefault();
+    try {
+      const { data } = await axios.post("/dj-rest-auth/login/", signInData);
+      setCurrentUser(data.user);
+      history.push("/");
+    } catch (err) {
+      setErrors(err.response?.data);
     }
-  }
+  };
   return (
     <Form onSubmit={handleSubmit} className={styles.FormContainer}>
       <h1 className="text-center mb-5">
@@ -47,6 +49,11 @@ const SignIn = () => {
           placeholder="Enter username"
         />
       </Form.Group>
+      {errors.username?.map((message, idx) => (
+        <Alert key={idx} variant="warning">
+          {message}
+        </Alert>
+      ))}
 
       <Form.Group className="mb-3">
         <Form.Label>Password :</Form.Label>
@@ -58,12 +65,24 @@ const SignIn = () => {
           placeholder="Enter password"
         />
       </Form.Group>
-      <Form.Group >
-        <Link className={`${styles.Link}`}>Dont have an account ? register now!</Link>
+      {errors.password?.map((message, idx) => (
+        <Alert key={idx} variant="warning">
+          {message}
+        </Alert>
+      ))}
+      <Form.Group>
+        <Link to="/SignUp" className={`${styles.Link}`}>
+          Dont have an account ? register now!
+        </Link>
       </Form.Group>
       <Button className={styles.FormButton} type="submit">
-        Submit
+        Log In
       </Button>
+      {errors.non_field_errors?.map((message, idx) => (
+        <Alert key={idx} variant="warning" className="mt-3">
+          {message}
+        </Alert>
+      ))}
     </Form>
   );
 };

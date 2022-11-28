@@ -75,6 +75,11 @@ function PostCreateForm() {
               onChange={handleChangeImage}
             />
           </Form.Group>
+          {errors?.image?.map((message, idx) => (
+            <Alert variant="warning" key={idx}>
+              {message}
+            </Alert>
+          ))}
         </Col>
         <Col>
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -86,6 +91,11 @@ function PostCreateForm() {
               value={title}
             />
           </Form.Group>
+          {errors?.title?.map((message, idx) => (
+            <Alert variant="warning" key={idx}>
+              {message}
+            </Alert>
+          ))}
 
           <Form.Group className="mb-5">
             <Form.Label>Content :</Form.Label>
@@ -97,6 +107,11 @@ function PostCreateForm() {
               onChange={handleChange}
             />
           </Form.Group>
+          {errors?.content?.map((message, idx) => (
+            <Alert variant="warning" key={idx}>
+              {message}
+            </Alert>
+          ))}
         </Col>
       </Row>
       <Button className={styles.FormButton} type="submit">

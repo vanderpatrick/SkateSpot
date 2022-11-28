@@ -28,7 +28,7 @@ export const CurrentUsertProvider = ({ children }) => {
     axiosReq.interceptors.request.use(
       async (config) => {
         try {
-          await axios.post("/dj-rest-auth/token/refresh/");
+          await axios.post("/dj-rest-auth/token/refresh");
         } catch (err) {
           setCurrentUser((prevCurrentUser) => {
             if (prevCurrentUser) {
