@@ -16,3 +16,12 @@
 .Decoration {
     text-decoration: none;
 }
+
+.Space i {
+    text-align: center;
+    justify-content: center;
+    margin: 10px;
+}
+span:hover {
+    cursor: pointer;
+}
