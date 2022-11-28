@@ -4,6 +4,7 @@ import Avatart from "../../components/Avatart";
 import styles from "../../styles/Post.module.css";
 import { useCurrentuser } from "../../contexts/CurrentUserContext";
 import { Link } from "react-router-dom";
+import { axiosRes } from "../../api/Axios";
 const Post = (props) => {
   const {
     id,
@@ -17,22 +18,49 @@ const Post = (props) => {
     content,
     image,
     updated_at,
-    postPage,
+    setposts,
   } = props;
   const currentUser = useCurrentuser();
   const is_owner = currentUser === owner;
+
+  const handleLike = async () => {
+    try {
+      const { data } = await axiosRes.post("/likes/", { post: id });
+      setposts((prevPosts) => ({
+        ...prevPosts,
+        results: prevPosts.results.map((post) => {
+          return post.id === id
+            ? { ...post, like_count: post.like_count + 1, like_id: data.id }
+            : post;
+        }),
+      }));
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleUnlike = async () => {
+    try {
+      await axiosRes.delete(`/likes/${like_id}`);
+      setposts((prevPosts) => ({
+        ...prevPosts,
+        results: prevPosts.results.map((post) => {
+          return post.id === id
+            ? { ...post, like_count: post.like_count - 1, like_id: null }
+            : post;
+        }),
+      }));
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <Card style={{ width: "80%" }}>
       <Card.Header className={styles.CardHeader}>
         <Link className={styles.Decoration} to={`/profiles/${profile_id}`}>
-          <Avatart
-            text={currentUser?.username}
-            src={profile_image}
-            height={55}
-          />
+          <Avatart text={owner} src={profile_image} height={55} />
         </Link>
-        {updated_at}
+        <span>{updated_at}</span>
       </Card.Header>
       <Card.Img variant="top" src={image} />
       <Card.Body>
@@ -47,11 +75,11 @@ const Post = (props) => {
               <i className="far fa-heart" />
             </OverlayTrigger>
           ) : like_id ? (
-            <span onClick={() => {}}>
+            <span onClick={handleUnlike}>
               <i className={`fas fa-heart ${styles.Heart}`} />
             </span>
           ) : currentUser ? (
-            <span onClick={() => {}}>
+            <span onClick={handleLike}>
               <i className={`far fa-heart ${styles.HeartOutline}`} />
             </span>
           ) : (
