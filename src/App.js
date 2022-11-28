@@ -6,13 +6,43 @@ import SignUp from "./Pages/registrations/SignUp";
 import SignIn from "./Pages/registrations/SignIn";
 import CreatePost from "./Pages/creations/CreatePost";
 import PostPage from "./Pages/posts/PostPage";
+import { useCurrentuser } from "./contexts/CurrentUserContext";
+import PostsPage from "./Pages/posts/PostsPage";
 function App() {
+  const currentUser = useCurrentuser()
+  const profile_id = currentUser?.profile_id || "";
   return (
     <div className={styles.App}>
       <NavBar />
       <Container className={styles.Main}>
         <Switch>
-          <Route exact path="/" render={() => <h1>Hellow</h1>} />
+          <Route
+            exact
+            path="/"
+            render={() => (
+              <PostsPage message="No results found. Adjust the search keyword." />
+            )}
+          />
+          <Route
+            exact
+            path="/feed"
+            render={() => (
+              <PostsPage
+                message="No results found. Adjust the search keyword or follow a user."
+                filter={`owner__followed__owner__profile=${profile_id}&`}
+              />
+            )}
+          />
+          <Route
+            exact
+            path="/liked"
+            render={() => (
+              <PostsPage
+                message="No results found. Adjust the search keyword or like a post."
+                filter={`likes__owner__profile=${profile_id}&ordering=-likes__created_at&`}
+              />
+            )}
+          />
           <Route exact path="/signin" render={() => <SignIn />} />
           <Route exact path="/signup" render={() => <SignUp />} />
           <Route exact path="/posts/create" render={() => <CreatePost />} />
