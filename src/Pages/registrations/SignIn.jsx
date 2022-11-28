@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
-import Alert from "react-bootstrap";
+import Alert from "react-bootstrap/Alert"
 import Form from "react-bootstrap/Form";
 import styles from "../../styles/Signin.module.css";
 import axios from "axios";

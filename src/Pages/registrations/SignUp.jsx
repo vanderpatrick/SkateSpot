@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import styles from "../../styles/Signup.module.css";
-import Alert from "react-bootstrap"
+import Alert from "react-bootstrap/Alert"
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 const SignUp = () => {
