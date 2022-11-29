@@ -5,15 +5,15 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./api/Axios";
-import { CurrentUsertProvider } from "./contexts/CurrentUserContext";
+import { CurrentUserProvider } from "./contexts/CurrentUserContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Router>
-      <CurrentUsertProvider>
+      <CurrentUserProvider>
         <App />
-      </CurrentUsertProvider>
+      </CurrentUserProvider>
     </Router>
   </React.StrictMode>
 );

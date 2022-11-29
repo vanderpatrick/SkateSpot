@@ -6,10 +6,10 @@ import SignUp from "./Pages/registrations/SignUp";
 import SignIn from "./Pages/registrations/SignIn";
 import CreatePost from "./Pages/creations/CreatePost";
 import PostPage from "./Pages/posts/PostPage";
-import { useCurrentuser } from "./contexts/CurrentUserContext";
+import { useCurrentUser } from "./contexts/CurrentUserContext";
 import PostsPage from "./Pages/posts/PostsPage";
 function App() {
-  const currentUser = useCurrentuser()
+  const currentUser = useCurrentUser()
   const profile_id = currentUser?.profile_id || "";
   return (
     <div className={styles.App}>

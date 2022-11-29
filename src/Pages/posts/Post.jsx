@@ -2,7 +2,7 @@ import React from "react";
 import { Card, OverlayTrigger, Tooltip } from "react-bootstrap";
 import Avatart from "../../components/Avatart";
 import styles from "../../styles/Post.module.css";
-import { useCurrentuser } from "../../contexts/CurrentUserContext";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { Link } from "react-router-dom";
 import { axiosRes } from "../../api/Axios";
 const Post = (props) => {
@@ -20,7 +20,7 @@ const Post = (props) => {
     updated_at,
     setposts,
   } = props;
-  const currentUser = useCurrentuser();
+  const currentUser = useCurrentUser();
   const is_owner = currentUser === owner;
 
   const handleLike = async () => {

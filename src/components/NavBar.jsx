@@ -6,14 +6,14 @@ import styles from "../styles/NavBar.module.css";
 import { NavLink } from "react-router-dom";
 import Avatar from "./Avatart";
 import {
-  useCurrentuser,
-  useSetCurrentuser,
+  useCurrentUser,
+  useSetCurrentUser,
 } from "../contexts/CurrentUserContext";
 import axios from "axios";
 
 const NavBar = () => {
-  const Currentuser = useCurrentuser();
-  const setCurrentUser = useSetCurrentuser();
+  const Currentuser = useCurrentUser();
+  const setCurrentUser = useSetCurrentUser();
 
   const handleSignOut = async () => {
     try {
@@ -63,7 +63,7 @@ const NavBar = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-auto text-left">
-              <NavLink to="/" className={styles.NavLink}>
+              <NavLink exact to="/" className={styles.NavLink}>
                 <i className="fas fa-home"></i>Home
               </NavLink>
               {Currentuser ? LogginIcons : LogedOutIcon}

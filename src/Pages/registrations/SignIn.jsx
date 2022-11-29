@@ -5,10 +5,10 @@ import Form from "react-bootstrap/Form";
 import styles from "../../styles/Signin.module.css";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
-import { useSetCurrentuser } from "../../contexts/CurrentUserContext";
+import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 
 const SignIn = () => {
-  const setCurrentUser = useSetCurrentuser();
+  const setCurrentUser = useSetCurrentUser();
   const [signInData, setsignIndata] = useState({
     username: "",
     password: "",
