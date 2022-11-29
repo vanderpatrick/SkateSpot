@@ -3,8 +3,9 @@ import { Card, OverlayTrigger, Tooltip } from "react-bootstrap";
 import Avatart from "../../components/Avatart";
 import styles from "../../styles/Post.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { axiosRes } from "../../api/Axios";
+import { MoreDropdown } from "../../components/DropDown";
 const Post = (props) => {
   const {
     id,
@@ -18,11 +19,24 @@ const Post = (props) => {
     content,
     image,
     updated_at,
+    postPage,
     setposts,
   } = props;
   const currentUser = useCurrentUser();
-  const is_owner = currentUser === owner;
+  const is_owner = currentUser?.username === owner;
+  const history = useHistory();
 
+  const handleDelete = async () => {
+    try {
+      await axiosRes.delete(`/posts/${id}`);
+      history.goBack();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleEdit = () => {
+    history.push(`/posts/${id}/edit`);
+  };
   const handleLike = async () => {
     try {
       const { data } = await axiosRes.post("/likes/", { post: id });
@@ -53,14 +67,16 @@ const Post = (props) => {
       console.log(err);
     }
   };
-
   return (
     <Card style={{ width: "80%" }}>
       <Card.Header className={styles.CardHeader}>
         <Link className={styles.Decoration} to={`/profiles/${profile_id}`}>
           <Avatart text={owner} src={profile_image} height={55} />
         </Link>
-        <span>{updated_at}</span>
+        <span>{is_owner && postPage && (
+          <MoreDropdown handleEdit={handleEdit} handleDelete={handleDelete} />
+        )}</span>
+        
       </Card.Header>
       <Card.Img variant="top" src={image} />
       <Card.Body>

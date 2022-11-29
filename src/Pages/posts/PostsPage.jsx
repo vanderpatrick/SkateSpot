@@ -20,7 +20,9 @@ function PostsPage({ message, filter = "" }) {
         setPosts(data);
         setHasLoaded(true);
       } catch (err) {
-        console.log(err);
+        if(err === 404){
+          console.log("page not found")
+        }
       }
     };
 
@@ -33,7 +35,6 @@ function PostsPage({ message, filter = "" }) {
       clearTimeout(timer);
     };
   }, [filter, query, pathname]);
-
 
   return (
     <Row className="h-100">
