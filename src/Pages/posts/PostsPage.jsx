@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Form, Container, Row, Col } from "react-bootstrap";
 
 import Post from "./Post";
-
+import Profiles from "../profiles/Profiles";
 import { useLocation } from "react-router";
 import { axiosReq } from "../../api/Axios";
 
@@ -12,6 +12,7 @@ function PostsPage({ message, filter = "" }) {
   const [hasLoaded, setHasLoaded] = useState(false);
   const { pathname } = useLocation();
   const [query, setQuery] = useState("");
+  
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -66,7 +67,7 @@ function PostsPage({ message, filter = "" }) {
         )}
       </Col>
       <Col md={4} className="d-none d-lg-block p-0 p-lg-2">
-        <p>Popular profiles for desktop</p>
+      <Profiles />
       </Col>
     </Row>
   );

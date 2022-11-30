@@ -6,13 +6,16 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
 import "./api/Axios";
 import { CurrentUserProvider } from "./contexts/CurrentUserContext";
+import { ProfileDataProvider } from "./contexts/ProfileContext";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <Router>
       <CurrentUserProvider>
-        <App />
+        <ProfileDataProvider>
+          <App />
+        </ProfileDataProvider>
       </CurrentUserProvider>
     </Router>
   </React.StrictMode>
