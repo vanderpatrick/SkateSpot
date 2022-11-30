@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { axiosReq, axiosRes } from "../api/Axios";
 import { useCurrentUser } from "../contexts/CurrentUserContext";
-import { followHelper, unfollowHelper  } from "../ultils/ultils";
+import { followHelper, unfollowHelper } from "../ultils/ultils";
 
 const ProfileDataContext = createContext();
 const SetProfileDataContext = createContext();
@@ -86,7 +86,9 @@ export const ProfileDataProvider = ({ children }) => {
 
   return (
     <ProfileDataContext.Provider value={profileData}>
-      <SetProfileDataContext.Provider value={{ setProfileData, handleFollow, handleUnfollow  }}>
+      <SetProfileDataContext.Provider
+        value={{ setProfileData, handleFollow, handleUnfollow }}
+      >
         {children}
       </SetProfileDataContext.Provider>
     </ProfileDataContext.Provider>

@@ -18,7 +18,6 @@ const Post = (props) => {
     title,
     content,
     image,
-    updated_at,
     postPage,
     setposts,
   } = props;
