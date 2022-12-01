@@ -7,6 +7,9 @@ import Profiles from "../profiles/Profiles";
 import { useLocation } from "react-router";
 import styles from "../../styles/PostsPage.module.css"
 import { axiosReq } from "../../api/Axios";
+import Asset from "../../components/Asset";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { fetchMoreData } from "../../ultils/ultils";
 
 function PostsPage({ message, filter = "" }) {
   const [posts, setPosts] = useState({ results: [] });
@@ -41,6 +44,7 @@ function PostsPage({ message, filter = "" }) {
   return (
     <Row className="h-100">
       <Col className="py-2 p-0 p-lg-2" lg={8}>
+        <Profiles mobile />
         <Form
           onSubmit={(event) => event.preventDefault()}
         >
@@ -54,21 +58,30 @@ function PostsPage({ message, filter = "" }) {
         </Form>
         {hasLoaded ? (
           <>
-            {posts.results.length ? (
-              posts.results.map((post) => (
-                <Post key={post.id} {...post} setPosts={setPosts} />
-              ))
+             {posts.results.length ? (
+              <InfiniteScroll
+                children={posts.results.map((post) => (
+                  <Post key={post.id} {...post} setPosts={setPosts} />
+                ))}
+                dataLength={posts.results.length}
+                loader={<Asset spinner />}
+                hasMore={!!posts.next}
+                next={() => fetchMoreData(posts, setPosts)}
+              />
             ) : (
-              <Container></Container>
+              <Container >
+                <Asset  message={message} />
+              </Container>
             )}
           </>
         ) : (
-          <Container></Container>
+          <Container >
+            <Asset spinner />
+          </Container>
         )}
       </Col>
       <Col md={4} className="d-none d-lg-block p-0 p-lg-2">
       <Profiles />
-        
       </Col>
     </Row>
   );
