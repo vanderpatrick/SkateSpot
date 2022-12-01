@@ -8,6 +8,7 @@ import PopularProfiles from "./Profiles";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { useParams } from "react-router";
 import { axiosReq } from "../../api/Axios";
+import styles from "../../styles/ProfilePage.module.css"
 import {
   useProfileData,
   useSetProfileData,
@@ -54,6 +55,7 @@ function ProfilePage() {
       <Row  className="px-3 text-center">
         <Col lg={3} className="text-lg-left">
           <Image
+          className={styles.ProfileImage}
             roundedCircle
             src={profile?.image}
           />

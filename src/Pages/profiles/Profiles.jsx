@@ -3,7 +3,8 @@ import { Container } from "react-bootstrap";
 import { axiosReq } from "../../api/Axios";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import Profile from "./Profile";
-import styles from "../../styles/profiles.module.css"
+import styles from "../../styles/profiles.module.css";
+import Asset from "../../components/Asset";
 
 const PopularProfiles = ({ mobile }) => {
   const [profileData, setProfileData] = useState({
@@ -33,7 +34,11 @@ const PopularProfiles = ({ mobile }) => {
   }, [currentUser]);
 
   return (
-    <Container className={styles.Border}>
+    <Container
+      className={`${styles.Content} ${
+        mobile && "d-lg-none text-center mb-3"
+      }`}
+    >
       {popularProfiles.results.length ? (
         <>
           <p>Most followed profiles.</p>
@@ -50,7 +55,7 @@ const PopularProfiles = ({ mobile }) => {
           )}
         </>
       ) : (
-        <p>NOthing here</p>
+        <Asset spinner />
       )}
     </Container>
   );
