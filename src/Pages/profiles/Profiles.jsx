@@ -3,6 +3,7 @@ import { Container } from "react-bootstrap";
 import { axiosReq } from "../../api/Axios";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import Profile from "./Profile";
+import styles from "../../styles/profiles.module.css"
 
 const PopularProfiles = ({ mobile }) => {
   const [profileData, setProfileData] = useState({
@@ -32,7 +33,7 @@ const PopularProfiles = ({ mobile }) => {
   }, [currentUser]);
 
   return (
-    <Container>
+    <Container className={styles.Border}>
       {popularProfiles.results.length ? (
         <>
           <p>Most followed profiles.</p>

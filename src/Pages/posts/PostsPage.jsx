@@ -5,6 +5,7 @@ import { Form, Container, Row, Col } from "react-bootstrap";
 import Post from "./Post";
 import Profiles from "../profiles/Profiles";
 import { useLocation } from "react-router";
+import styles from "../../styles/PostsPage.module.css"
 import { axiosReq } from "../../api/Axios";
 
 function PostsPage({ message, filter = "" }) {
@@ -40,7 +41,6 @@ function PostsPage({ message, filter = "" }) {
   return (
     <Row className="h-100">
       <Col className="py-2 p-0 p-lg-2" lg={8}>
-        <p>Popular profiles mobile</p>
         <Form
           onSubmit={(event) => event.preventDefault()}
         >
@@ -48,7 +48,7 @@ function PostsPage({ message, filter = "" }) {
             value={query}
             onChange={(event) => setQuery(event.target.value)}
             type="text"
-            className="mr-sm-2"
+            className={`mr-sm-2 ${styles.Filter}`}
             placeholder="Search posts"
           />
         </Form>
@@ -68,6 +68,7 @@ function PostsPage({ message, filter = "" }) {
       </Col>
       <Col md={4} className="d-none d-lg-block p-0 p-lg-2">
       <Profiles />
+        
       </Col>
     </Row>
   );

@@ -67,7 +67,7 @@ const Post = (props) => {
     }
   };
   return (
-    <Card style={{ width: "80%" }}>
+    <Card className={styles.Card}>
       <Card.Header className={styles.CardHeader}>
         <Link className={styles.Decoration} to={`/profiles/${profile_id}`}>
           <Avatart text={owner} src={profile_image} height={55} />
