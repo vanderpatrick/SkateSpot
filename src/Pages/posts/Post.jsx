@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, OverlayTrigger, Tooltip } from "react-bootstrap";
 import Avatart from "../../components/Avatart";
 import styles from "../../styles/Post.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { Link, useHistory } from "react-router-dom";
+import { axiosReq } from "../../api/Axios";
 import { axiosRes } from "../../api/Axios";
 import { MoreDropdown } from "../../components/DropDown";
+import Comment from "./PostComment";
+import CreateComment from "../creations/CreateComment";
 const Post = (props) => {
   const {
     id,
@@ -24,6 +27,8 @@ const Post = (props) => {
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
   const history = useHistory();
+  const [post, setPost] = useState({ results: [] });
+
 
   const handleDelete = async () => {
     try {
@@ -51,6 +56,27 @@ const Post = (props) => {
       console.log(err);
     }
   };
+  const [comments, setComments] = useState({ results: [] });
+  useEffect(() => {
+    const handleMount = async () => {
+      try {
+        const [{ data: post }, { data: comments }] = await Promise.all([
+          axiosReq.get(`/posts/${id}`),
+          axiosReq.get(`/comments/?post=${id}`),
+        ]);
+        setPost({ results: [post] });
+        setComments(comments);
+        console.log(post);
+      } catch (err) {
+        if (err.response?.status === 404) {
+          history.push("/");
+        }
+      }
+    };
+
+    handleMount();
+  }, [history, id]);
+
   const handleUnlike = async () => {
     try {
       await axiosRes.delete(`/likes/${like_id}`);
@@ -72,10 +98,11 @@ const Post = (props) => {
         <Link className={styles.Decoration} to={`/profiles/${profile_id}`}>
           <Avatart text={owner} src={profile_image} height={55} />
         </Link>
-        <span>{is_owner && postPage && (
-          <MoreDropdown handleEdit={handleEdit} handleDelete={handleDelete} />
-        )}</span>
-        
+        <span>
+          {is_owner && postPage && (
+            <MoreDropdown handleEdit={handleEdit} handleDelete={handleDelete} />
+          )}
+        </span>
       </Card.Header>
       <Card.Img variant="top" src={image} />
       <Card.Body>
@@ -111,6 +138,13 @@ const Post = (props) => {
           </Link>
           {comments_count}
         </div>
+        <CreateComment
+          profile_id={currentUser.profile_id}
+          profileImage={profile_image}
+          setPost={setPost}
+          post={id}
+          setComments={setComments}
+        />
       </Card.Body>
     </Card>
   );
