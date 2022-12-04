@@ -30,7 +30,6 @@ function PostPage() {
         ]);
         setPost({ results: [post] });
         setComments(comments);
-        console.log(post);
       } catch (err) {
         if (err.response?.status === 404) {
           history.push("/");
