@@ -23,6 +23,7 @@ const PopularProfiles = () => {
           ...prevState,
           popularProfiles: data,
         }));
+        console.log(data)
       } catch (err) {
         console.log(err);
       }
@@ -38,9 +39,13 @@ const PopularProfiles = () => {
       {popularProfiles.results.length ? (
         <>
           <div className=" d-flex justify-content-around">
+            <Carousel className={styles.Carousel}>
             {popularProfiles.results.map((profile) => (
+              <Carousel.Item className={styles.CarouselItem}>
               <Profile key={profile.id} profile={profile} />
-            ))}
+              </Carousel.Item>
+              ))}
+            </Carousel>
           </div>
         </>
       ) : (

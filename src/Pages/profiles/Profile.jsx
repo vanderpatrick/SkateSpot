@@ -2,7 +2,7 @@ import React from "react";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { Link } from "react-router-dom";
 import Avatar from "../../components/Avatart";
-import { Button } from "react-bootstrap";
+import { Button, Carousel } from "react-bootstrap";
 import { useSetProfileData } from "../../contexts/ProfileContext";
 
 const Profile = (props) => {
@@ -14,7 +14,7 @@ const Profile = (props) => {
 
   return (
     <div
-      className="my-3 d-flex align-items-center flex-column"
+    className="my-3 d-flex align-items-center flex-column"
     >
       <div>
         <Link className="align-self-center" to={`/profiles/${id}`}>
@@ -25,13 +25,7 @@ const Profile = (props) => {
         <strong>{owner}</strong>
       </div>
       <div className="text-rightml-auto">
-        {currentUser &&
-          !is_owner &&
-          (following_id ? (
-            <Button onClick={() => handleUnfollow(profile)}>unfollow</Button>
-          ) : (
-            <Button onClick={() => handleFollow(profile)}>follow</Button>
-          ))}
+        
       </div>
     </div>
   );
