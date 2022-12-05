@@ -14,7 +14,6 @@ const PopularProfiles = () => {
   });
   const { popularProfiles } = profileData;
   const currentUser = useCurrentUser();
-
   useEffect(() => {
     const handleMount = async () => {
       try {
@@ -23,28 +22,48 @@ const PopularProfiles = () => {
           ...prevState,
           popularProfiles: data,
         }));
-        console.log(data)
       } catch (err) {
         console.log(err);
       }
     };
-
+    
     handleMount();
-  }, [currentUser]);
+    console.log(popularProfiles)
+  },popularProfiles, [currentUser]);
+  let result = [];
+  let temp = [];
 
+  popularProfiles.results.forEach((item, index) => {
+    if (temp.length === 2) {
+      result.push(temp);
+      temp = [];
+    }
+
+    temp.push(item);
+
+    if (index === popularProfiles.results.length - 1) {
+      result.push(temp);
+      temp = [];
+    }
+  });
+
+  console.log(result);
+  console.log(popularProfiles);
   return (
     <Container
       className={`${styles.Content}  ${styles.Border} ${"text-center mb-3"}`}
     >
-      {popularProfiles.results.length ? (
+      {result.length ? (
         <>
           <div className=" d-flex justify-content-around">
             <Carousel className={styles.Carousel}>
-            {popularProfiles.results.map((profile) => (
-              <Carousel.Item className={styles.CarouselItem}>
-              <Profile key={profile.id} profile={profile} />
-              </Carousel.Item>
-              ))}
+              {result.map((arr) => (
+              <Carousel.Item key={arr} className={styles.CarouselItem}>
+                  {arr.map((profile)=>(
+                    <Profile className={styles.CarouselItem} key={profile} profile={profile} />
+                  ))}
+                </Carousel.Item>
+                  ))}
             </Carousel>
           </div>
         </>
@@ -54,5 +73,5 @@ const PopularProfiles = () => {
     </Container>
   );
 };
-
 export default PopularProfiles;
+{/* <Profile key={profile.id} profile={profile} /> */}

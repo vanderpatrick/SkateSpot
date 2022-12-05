@@ -1,29 +1,28 @@
-import React, {useState, useEffect} from 'react'
-import axios from "axios"
-import { Carousel } from 'react-bootstrap'
-import Profile from './Profile'
-import styles from '../../styles/test.module.css'
-const Test = () => {
-  const [test, setTest] = useState({ results: [] })
+import React from 'react'
+const array = [1,2,3,4,5,6,7,8,9,10]
 
-  useEffect(()=> {
-    axios.get("https://skt-drf.herokuapp.com/profiles/")
-    .then(res => {
-      console.log(res)
-      setTest(res.data)
-    })
-    .catch(err=> {
-      console.log(err)
-    })
-  },[])
+let result = [];
+let temp = [];
+
+array.forEach((item, index) => {
+  if (temp.length === 4) {
+      result.push(temp);
+      temp = []
+  }
+
+  temp.push(item);
+
+  if (index === array.length - 1) {
+      result.push(temp);
+      temp = []
+  }
+})
+
+console.log(result);
+
+const Test = () => {
   return (
-    <Carousel className={styles.Width}>
-        {test.results.map((profile) => (
-              <Carousel.Item>
-              <Profile key={Profile.id} profile={profile}></Profile>
-              </Carousel.Item>
-              ))}
-    </Carousel>
+    <div>{result[0]}</div>
   )
 }
 

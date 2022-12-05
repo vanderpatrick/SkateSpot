@@ -1,7 +1,11 @@
 .Card {
-  margin: 10px;
+  margin-top: 10px;
 }
-
+.Test{
+  height: 1400px;
+  object-fit: contain;
+  width: 100%;
+}
 .CardHeader {
   display: flex;
   align-items: center;

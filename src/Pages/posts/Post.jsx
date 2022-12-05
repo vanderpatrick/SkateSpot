@@ -95,11 +95,11 @@ const Post = (props) => {
   };
 
   return (
-    <Card className={styles.Post}>
+    <Card className={styles.Card}>
       <Card.Body>
-        <Card.Header className="align-items-center justify-content-between">
-          <Link to={`/profiles/${profile_id}`}>
-            <Avatart src={profile_image} height={55} />
+        <Card.Header className={`${styles.CardHeader} align-items-center justify-content-between`}>
+          <Link to={`/profiles/${profile_id}`} className={styles.Decoration}>
+            <Avatart   src={profile_image} height={55} />
             {owner}
           </Link>
           <div className="d-flex align-items-center">
@@ -114,7 +114,7 @@ const Post = (props) => {
         </Card.Header>
       </Card.Body>
       <Link to={`/posts/${id}`}>
-        <Card.Img src={image} alt={title} />
+        <Card.Img className={styles.Test} src={image} alt={title} />
       </Link>
       <Card.Body>
         {title && <Card.Title className="text-center">{title}</Card.Title>}
