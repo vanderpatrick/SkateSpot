@@ -43,7 +43,7 @@ function PostsPage({ message, filter = "" }) {
 
   return (
     <Row className="h-100">
-      <Col className="py-2 p-0 p-lg-2" lg={8}>
+      <Col className="py-2 p-0 p-lg-2" lg={12}>
         <Profiles mobile />
         <Form
           onSubmit={(event) => event.preventDefault()}
@@ -79,9 +79,6 @@ function PostsPage({ message, filter = "" }) {
             <Asset spinner />
           </Container>
         )}
-      </Col>
-      <Col md={4} className="d-none d-lg-block p-0 p-lg-2">
-      <Profiles />
       </Col>
     </Row>
   );

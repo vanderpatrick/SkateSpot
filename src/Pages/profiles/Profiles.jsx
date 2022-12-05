@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Carousel } from "react-bootstrap";
 import { axiosReq } from "../../api/Axios";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import Profile from "./Profile";
 import styles from "../../styles/profiles.module.css";
 import Asset from "../../components/Asset";
 
-const PopularProfiles = ({ mobile }) => {
+const PopularProfiles = () => {
   const [profileData, setProfileData] = useState({
     // we will use the pageProfile later!
     pageProfile: { results: [] },
@@ -18,9 +18,7 @@ const PopularProfiles = ({ mobile }) => {
   useEffect(() => {
     const handleMount = async () => {
       try {
-        const { data } = await axiosReq.get(
-          "/profiles/?ordering=-followers_count"
-        );
+        const { data } = await axiosReq.get("/profiles/");
         setProfileData((prevState) => ({
           ...prevState,
           popularProfiles: data,
@@ -35,27 +33,18 @@ const PopularProfiles = ({ mobile }) => {
 
   return (
     <Container
-      className={`${styles.Content}  ${styles.Border} ${
-        mobile && "text-center mb-3"
-      }`}
+      className={`${styles.Content}  ${styles.Border} ${"text-center mb-3"}`}
     >
       {popularProfiles.results.length ? (
         <>
-          <p>Most followed profiles.</p>
-          {mobile ? (
-            <div className=" d-flex justify-content-around">
-              {popularProfiles.results.slice(0, 4).map((profile) => (
-                <Profile key={profile.id} profile={profile} mobile />
-              ))}
-            </div>
-          ) : (
-            popularProfiles.results.map((profile) => (
+          <div className=" d-flex justify-content-around">
+            {popularProfiles.results.map((profile) => (
               <Profile key={profile.id} profile={profile} />
-            ))
-          )}
+            ))}
+          </div>
         </>
       ) : (
-        <Asset spinner />
+        <Asset />
       )}
     </Container>
   );
