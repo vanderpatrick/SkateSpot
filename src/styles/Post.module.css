@@ -1,23 +1,29 @@
-.Card{
-    margin: 10px;
+.Card {
+  margin: 10px;
 }
 
 .CardHeader {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
 }
 
 .Decoration {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 .Space i {
-    text-align: center;
-    justify-content: center;
-    margin: 10px;
+  text-align: center;
+  justify-content: center;
+  margin: 10px;
 }
 span:hover {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+.Scroll {
+  height: 110px;
+  overflow-x: hidden;
+  overflow-y: auto;
 }

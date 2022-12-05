@@ -24,7 +24,7 @@ const Post = (props) => {
     postPage,
     setPosts,
   } = props;
-  const [comments, setComments] = useState({restults: []})
+  const [comments, setComments] = useState({ results: [] });
   const currentUser = useCurrentUser();
   const is_owner = currentUser?.username === owner;
   const history = useHistory();
@@ -156,6 +156,23 @@ const Post = (props) => {
       post={id}
       setPost={setPost}
       setComments={setComments} />
+<hr></hr>
+      <Card.Body className={styles.Scroll}>
+      {comments.results.length ? (
+            comments.results.map((comment) => (
+              <Comment
+                key={comment.id}
+                {...comment}
+                setPost={setPost}
+                setComments={setComments}
+              />
+            ))
+          ) : currentUser ? (
+            <span>No comments yet, be the first to comment!</span>
+          ) : (
+            <span>No comments... yet</span>
+          )}
+      </Card.Body>
     </Card>
   );
 };
