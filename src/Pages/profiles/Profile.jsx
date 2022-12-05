@@ -22,9 +22,8 @@ const Profile = (props) => {
         </Link>
       </div>
       <div>
-        <strong>{owner}</strong>
       </div>
-      <div className="text-rightml-auto">
+      {/* <div className="text-rightml-auto">
         {currentUser &&
           !is_owner &&
           (following_id ? (
@@ -32,7 +31,7 @@ const Profile = (props) => {
           ) : (
             <Button onClick={() => handleFollow(profile)}>follow</Button>
           ))}
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Container, Carousel } from "react-bootstrap";
+
 import { axiosReq } from "../../api/Axios";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import Profile from "./Profile";
@@ -14,27 +15,31 @@ const PopularProfiles = () => {
   });
   const { popularProfiles } = profileData;
   const currentUser = useCurrentUser();
-  useEffect(() => {
-    const handleMount = async () => {
-      try {
-        const { data } = await axiosReq.get("/profiles/");
-        setProfileData((prevState) => ({
-          ...prevState,
-          popularProfiles: data,
-        }));
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    
-    handleMount();
-    console.log(popularProfiles)
-  },popularProfiles, [currentUser]);
+  useEffect(
+    () => {
+      const handleMount = async () => {
+        try {
+          const { data } = await axiosReq.get("/profiles/?ordering=-followers_count");
+          setProfileData((prevState) => ({
+            ...prevState,
+            popularProfiles: data,
+          }));
+        } catch (err) {
+          console.log(err);
+        }
+      };
+
+      handleMount();
+      console.log(popularProfiles);
+    },
+    popularProfiles,
+    [currentUser]
+  );
   let result = [];
   let temp = [];
 
   popularProfiles.results.forEach((item, index) => {
-    if (temp.length === 2) {
+    if (temp.length === 3) {
       result.push(temp);
       temp = [];
     }
@@ -55,15 +60,23 @@ const PopularProfiles = () => {
     >
       {result.length ? (
         <>
-          <div className=" d-flex justify-content-around">
-            <Carousel className={styles.Carousel}>
+        <h1>most viewd</h1>
+          <div className=" d-flex  justify-content-between">
+            <Carousel className={`${styles.Carousel} `}>
+              
               {result.map((arr) => (
-              <Carousel.Item key={arr} className={styles.CarouselItem}>
-                  {arr.map((profile)=>(
-                    <Profile className={styles.CarouselItem} key={profile} profile={profile} />
-                  ))}
+                <Carousel.Item key={arr} className={styles.CarouselItem}>
+                  <div className={styles.Carousel}>
+                    {arr.map((profile) => (
+                      <Profile
+                        className={styles.CarouselItem}
+                        key={profile}
+                        profile={profile}
+                      />
+                    ))}
+                  </div>
                 </Carousel.Item>
-                  ))}
+              ))}
             </Carousel>
           </div>
         </>
@@ -74,4 +87,6 @@ const PopularProfiles = () => {
   );
 };
 export default PopularProfiles;
-{/* <Profile key={profile.id} profile={profile} /> */}
+{
+  /* <Profile key={profile.id} profile={profile} /> */
+}
