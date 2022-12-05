@@ -5,7 +5,6 @@ import { Route, Switch } from "react-router-dom";
 import SignUp from "./Pages/registrations/SignUp";
 import SignIn from "./Pages/registrations/SignIn";
 import CreatePost from "./Pages/creations/CreatePost";
-import PostPage from "./Pages/posts/PostPage";
 import { useCurrentUser } from "./contexts/CurrentUserContext";
 import PostsPage from "./Pages/posts/PostsPage";
 import PostEditForm from "./Pages/posts/PostEdit";
@@ -66,7 +65,6 @@ function App() {
           <Route exact path="/signin" render={() => <SignIn />} />
           <Route exact path="/signup" render={() => <SignUp />} />
           <Route exact path="/posts/create" render={() => <CreatePost />} />
-          <Route exact path="/posts/:id" render={() => <PostPage />} />
           <Route exact path="/posts/:id/edit" render={() => <PostEditForm />} />
           <Route exact path="/profiles/:id" render={() => <ProfilePage />} />
           
