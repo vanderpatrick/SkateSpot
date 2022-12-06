@@ -19,7 +19,9 @@ const PopularProfiles = () => {
     () => {
       const handleMount = async () => {
         try {
-          const { data } = await axiosReq.get("/profiles/?ordering=-followers_count");
+          const { data } = await axiosReq.get(
+            "/profiles/?ordering=-followers_count"
+          );
           setProfileData((prevState) => ({
             ...prevState,
             popularProfiles: data,
@@ -30,9 +32,8 @@ const PopularProfiles = () => {
       };
 
       handleMount();
-      console.log(popularProfiles);
     },
-    popularProfiles,
+   
     [currentUser]
   );
   let result = [];
@@ -52,25 +53,22 @@ const PopularProfiles = () => {
     }
   });
 
-  console.log(result);
-  console.log(popularProfiles);
   return (
     <Container
       className={`${styles.Content}  ${styles.Border} ${"text-center mb-3"}`}
     >
       {result.length ? (
         <>
-        <h1>most viewd</h1>
+          <h1>most viewd</h1>
           <div className=" d-flex  justify-content-between">
             <Carousel className={`${styles.Carousel} `}>
-              
-              {result.map((arr) => (
-                <Carousel.Item key={arr} className={styles.CarouselItem}>
+              {result.map((arr, index) => (
+                <Carousel.Item key={index} className={styles.CarouselItem}>
                   <div className={styles.Carousel}>
-                    {arr.map((profile) => (
+                    {arr.map((profile, ind) => (
                       <Profile
                         className={styles.CarouselItem}
-                        key={profile}
+                        key={ind}
                         profile={profile}
                       />
                     ))}
@@ -87,6 +85,4 @@ const PopularProfiles = () => {
   );
 };
 export default PopularProfiles;
-{
-  /* <Profile key={profile.id} profile={profile} /> */
-}
+

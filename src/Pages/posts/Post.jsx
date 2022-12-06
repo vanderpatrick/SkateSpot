@@ -156,7 +156,6 @@ const Post = (props) => {
       post={id}
       setPost={setPost}
       setComments={setComments} />
-<hr></hr>
       <Card.Body className={styles.Scroll}>
       {comments.results.length ? (
             comments.results.map((comment) => (

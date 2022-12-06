@@ -5,7 +5,7 @@ import { Form, Container, Row, Col } from "react-bootstrap";
 import Post from "./Post";
 import Profiles from "../profiles/Profiles";
 import { useLocation } from "react-router";
-import styles from "../../styles/PostsPage.module.css"
+import styles from "../../styles/PostsPage.module.css";
 import { axiosReq } from "../../api/Axios";
 import Asset from "../../components/Asset";
 import InfiniteScroll from "react-infinite-scroll-component";
@@ -16,7 +16,6 @@ function PostsPage({ message, filter = "" }) {
   const [hasLoaded, setHasLoaded] = useState(false);
   const { pathname } = useLocation();
   const [query, setQuery] = useState("");
-  
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -25,8 +24,8 @@ function PostsPage({ message, filter = "" }) {
         setPosts(data);
         setHasLoaded(true);
       } catch (err) {
-        if(err === 404){
-          console.log("page not found")
+        if (err === 404) {
+          console.log("page not found");
         }
       }
     };
@@ -44,10 +43,8 @@ function PostsPage({ message, filter = "" }) {
   return (
     <Row className="h-100">
       <Col className="py-2 p-0 p-lg-2" lg={12}>
-        <Profiles  />
-        <Form
-          onSubmit={(event) => event.preventDefault()}
-        >
+        <Profiles />
+        <Form onSubmit={(event) => event.preventDefault()}>
           <Form.Control
             value={query}
             onChange={(event) => setQuery(event.target.value)}
@@ -58,7 +55,7 @@ function PostsPage({ message, filter = "" }) {
         </Form>
         {hasLoaded ? (
           <>
-             {posts.results.length ? (
+            {posts.results.length ? (
               <InfiniteScroll
                 children={posts.results.map((post) => (
                   <Post key={post.id} {...post} setPosts={setPosts} />
@@ -69,13 +66,13 @@ function PostsPage({ message, filter = "" }) {
                 next={() => fetchMoreData(posts, setPosts)}
               />
             ) : (
-              <Container >
-                <Asset  message={message} />
+              <Container>
+                <Asset message={message} />
               </Container>
             )}
           </>
         ) : (
-          <Container >
+          <Container>
             <Asset spinner />
           </Container>
         )}

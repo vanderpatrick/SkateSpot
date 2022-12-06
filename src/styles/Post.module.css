@@ -1,12 +1,15 @@
 .Card {
   margin-top: 10px;
+
 }
 .Test{
-  height: 1400px;
   object-fit: contain;
   width: 100%;
+  padding: 15px;
+  border-radius: 20px;
 }
 .CardHeader {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -27,7 +30,7 @@ span:hover {
 }
 
 .Scroll {
-  height: 110px;
+  height: 200px;
   overflow-x: hidden;
   overflow-y: auto;
 }

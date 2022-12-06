@@ -12,7 +12,7 @@ import ProfilePage from "./Pages/profiles/ProfilePage";
 import ProfileEditForm from "./Pages/creations/ProfileEditForm";
 import UserPasswordForm from "./Pages/creations/PasswordChange";
 import UsernameForm from "./Pages/creations/UsernameChange";
-import Test from "./Pages/profiles/Test.jsx"
+import Post from "./Pages/posts/Post";
 function App() {
   const currentUser = useCurrentUser()
   const profile_id = currentUser?.profile_id || "";
@@ -68,7 +68,7 @@ function App() {
           <Route exact path="/posts/create" render={() => <CreatePost />} />
           <Route exact path="/posts/:id/edit" render={() => <PostEditForm />} />
           <Route exact path="/profiles/:id" render={() => <ProfilePage />} />
-          <Route exact path="/test" render={() => <Test />} />
+          <Route exact path="/post" render={() => <Post />} />
           <Route render={() => <p>Page not found!</p>} />
         </Switch>
       </Container>

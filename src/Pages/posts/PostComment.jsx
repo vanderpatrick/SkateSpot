@@ -44,11 +44,11 @@ const Comment = (props) => {
   return (
     <div>
       <hr />
-      <Card>
+      <Card className={styles.CommentBody}>
         <Link to={`/profiles/${profile_id}`}>
           <Avatar src={profile_image} />
         </Link>
-        <Card.Body className="align-self-center" nl-2>
+        <Card.Body className={`align-self-center nl-2 ${styles.CommentSize}`} >
           <span>{owner}</span>
           <span>{updated_at}</span>
           {showEditForm ? (
