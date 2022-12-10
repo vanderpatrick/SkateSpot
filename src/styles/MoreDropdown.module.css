@@ -6,6 +6,7 @@
   
   .Absolute {
     position: absolute;
+    margin-left: 30px;
     right: 0;
     z-index: 99;
   }

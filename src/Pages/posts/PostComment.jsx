@@ -1,10 +1,10 @@
-import React, {useState} from "react";
-import { Card } from "react-bootstrap";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Avatar from "../../components/Avatart";
 import styles from "../../styles/Comment.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosRes } from "../../api/Axios";
+import { Media } from "react-bootstrap";
 import { MoreDropdown } from "../../components/DropDown";
 import PostCommentEdit from "../creations/PostCommentEdit";
 const Comment = (props) => {
@@ -40,17 +40,24 @@ const Comment = (props) => {
       }));
     } catch (err) {}
   };
-
   return (
-    <div>
+    <>
       <hr />
-      <Card className={styles.CommentBody}>
+      <Media className="mx-2">
+        <div className="">
+      {is_owner && !showEditForm && (
+          <MoreDropdown
+            handleEdit={() => setShowEditForm(true)}
+            handleDelete={handleDelete}
+          />
+        )}
         <Link to={`/profiles/${profile_id}`}>
           <Avatar src={profile_image} />
         </Link>
-        <Card.Body className={`align-self-center nl-2 ${styles.CommentSize}`} >
-          <span>{owner}</span>
-          <span>{updated_at}</span>
+        </div>
+        <Media.Body className="align-self-center ml-2" id="test">
+          <span className={styles.Owner}>{owner}</span>
+          <span className={styles.Date}>{updated_at}</span>
           {showEditForm ? (
             <PostCommentEdit
               id={id}
@@ -63,15 +70,10 @@ const Comment = (props) => {
           ) : (
             <p>{content}</p>
           )}
-        </Card.Body>
-        {is_owner && !showEditForm && (
-          <MoreDropdown
-            handleEdit={() => setShowEditForm(true)}
-            handleDelete={handleDelete}
-          />
-        )}
-      </Card>
-    </div>
+        </Media.Body>
+        
+      </Media>
+    </>
   );
 };
 export default Comment;

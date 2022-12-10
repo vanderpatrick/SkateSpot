@@ -5,7 +5,6 @@ import styles from "../../styles/CreateComment.module.css";
 import { Form, InputGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-
 function CreateComment(props) {
   const { post, setPost, setComments, profileImage, profile_id } = props;
   const [content, setContent] = useState("");
@@ -38,23 +37,32 @@ function CreateComment(props) {
       console.log(err);
     }
   };
-  return <Form className="mt-2" onSubmit={handleSubmit}>
-    <Form.Group>
+  return (
+    <Form className="mt-2" onSubmit={handleSubmit}>
+      <Form.Group>
         <InputGroup>
-            <Link to={`/profiles/${profile_id}`}>
-                <Avatart src={profileImage} />
-            </Link>
-            <Form.Control
+          <Link to={`/profiles/${profile_id}`}>
+            <Avatart src={profileImage} />
+          </Link>
+          <Form.Control
+            className={styles.Form}
             placeholder="my comment"
             as="textarea"
             value={content}
             onChange={handleChange}
             rows={2}
-            />
+          />
         </InputGroup>
-    </Form.Group>
-    <button disabled={!content.trim()} type="submit">Post</button>
-  </Form>;
+      </Form.Group>
+      <button
+        disabled={!content.trim()}
+        className={`${styles.Button} btn d-block ml-auto`}
+        type="submit"
+      >
+        Post
+      </button>
+    </Form>
+  );
 }
 
 export default CreateComment;

@@ -55,7 +55,7 @@ const Post = (props) => {
 
   const handleDelete = async () => {
     try {
-      await axiosRes.delete(`/posts/${id}/`);
+      await axiosRes.delete(`/posts/${id}`);
       history.goBack();
     } catch (err) {
       console.log(err);
@@ -98,13 +98,13 @@ const Post = (props) => {
     <Card className={styles.Card}>
       <Card.Body>
         <Card.Header className={`${styles.CardHeader} align-items-center justify-content-between`}>
-          <Link to={`/profiles/${profile_id}`} className={styles.Decoration}>
+          <Link to={`/profiles/${profile_id}/`} className={styles.Decoration}>
             <Avatart   src={profile_image} height={55} />
             {owner}
           </Link>
-          <div className="d-flex align-items-center">
-            <span>{updated_at}</span>
-            {is_owner && postPage && (
+          <div className="d-flex align-items-center p-1">
+            <span className="mx-2">{updated_at}</span>
+            {is_owner && (
               <MoreDropdown
                 handleEdit={handleEdit}
                 handleDelete={handleDelete}
@@ -156,7 +156,7 @@ const Post = (props) => {
       post={id}
       setPost={setPost}
       setComments={setComments} />
-      <Card.Body className={styles.Scroll}>
+      <div className={styles.Scroll}>
       {comments.results.length ? (
             comments.results.map((comment) => (
               <Comment
@@ -171,7 +171,7 @@ const Post = (props) => {
           ) : (
             <span>No comments... yet</span>
           )}
-      </Card.Body>
+      </div>
     </Card>
   );
 };

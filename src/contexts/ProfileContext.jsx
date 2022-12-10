@@ -20,7 +20,7 @@ export const ProfileDataProvider = ({ children }) => {
 
   const handleFollow = async (clickedProfile) => {
     try {
-      const { data } = await axiosRes.post("/follows/", {
+      const { data } = await axiosRes.post("/follows", {
         followed: clickedProfile.id,
       });
 
