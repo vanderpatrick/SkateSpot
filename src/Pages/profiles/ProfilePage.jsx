@@ -6,9 +6,15 @@ import Container from "react-bootstrap/Container";
 import { ProfileEditDropdown } from "../../components/DropDown";
 import PopularProfiles from "./Profiles";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import logo from "../../Assets/logo.png"
 import { useParams } from "react-router";
 import { axiosReq } from "../../api/Axios";
+import Asset from "../../components/Asset";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { fetchMoreData } from "../../ultils/ultils";
+import appStyles from "../../App.module.css"
 import styles from "../../styles/ProfilePage.module.css"
+import Post from "../../Pages/posts/Post"
 import {
   useProfileData,
   useSetProfileData,
@@ -51,11 +57,11 @@ function ProfilePage() {
 
   const mainProfile = (
     <>
-    {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
-      <Row  className="px-3 text-center">
+      {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
+      <Row noGutters className="px-3 text-center">
         <Col lg={3} className="text-lg-left">
           <Image
-          className={styles.ProfileImage}
+            className={styles.ProfileImage}
             roundedCircle
             src={profile?.image}
           />
@@ -105,44 +111,40 @@ function ProfilePage() {
       <p className="text-center">{profile?.owner}'s posts</p>
       <hr />
       {profilePosts.results.length ? (
-        // <InfiniteScroll
-        //   children={profilePosts.results.map((post) => (
-        //     <Post key={post.id} {...post} setPosts={setProfilePosts} />
-        //   ))}
-        //   dataLength={profilePosts.results.length}
-        //   loader={<Asset spinner />}
-        //   hasMore={!!profilePosts.next}
-        //   next={() => fetchMoreData(profilePosts, setProfilePosts)}
-        // /
-        <p>hello</p>
+        <InfiniteScroll
+          children={profilePosts.results.map((post) => (
+            <Post key={post.id} {...post} setPosts={setProfilePosts} />
+          ))}
+          dataLength={profilePosts.results.length}
+          loader={<Asset spinner />}
+          hasMore={!!profilePosts.next}
+          next={() => fetchMoreData(profilePosts, setProfilePosts)}
+        />
       ) : (
-        // <Asset
-        //   src={NoResults}
-        //   message={`No results found, ${profile?.owner} hasn't posted yet.`}
-        // />
-        <p>hello2</p>
+        <Asset
+          src={logo}
+          message={`No results found, ${profile?.owner} hasn't posted yet.`}
+        />
       )}
     </>
   );
 
   return (
     <Row>
-      <Col className="py-2 p-0 p-lg-2" lg={8}>
-        <PopularProfiles/>
-        <Container >
+      <Col className="py-2 p-0 p-lg-2" lg={12}>
+        <PopularProfiles  />
+        <Container className={appStyles.Content}>
           {hasLoaded ? (
             <>
               {mainProfile}
               {mainProfilePosts}
             </>
           ) : (
-            <p>Nothing here</p>
+            <Asset spinner />
           )}
         </Container>
       </Col>
-      <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
-        <PopularProfiles />
-      </Col>
+      
     </Row>
   );
 }
