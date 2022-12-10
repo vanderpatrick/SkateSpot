@@ -113,7 +113,7 @@ const Post = (props) => {
           </div>
         </Card.Header>
       </Card.Body>
-      <Link to={`/posts/${id}`}>
+      <Link to={`/profiles/${profile_id}/`}>
         <Card.Img className={styles.Test} src={image} alt={title} />
       </Link>
       <Card.Body>
@@ -150,12 +150,14 @@ const Post = (props) => {
           {comments_count}
         </div>
       </Card.Body>
-      <CreateComment
+      {currentUser ? (
+        <CreateComment
       profile_id={currentUser.profile_id}
       profileImage={profile_image}
       post={id}
       setPost={setPost}
       setComments={setComments} />
+      ):<div>socrates moc</div>}
       <div className={styles.Scroll}>
       {comments.results.length ? (
             comments.results.map((comment) => (

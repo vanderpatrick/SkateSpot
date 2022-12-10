@@ -30,7 +30,7 @@ function PostCreateForm() {
     formData.append("image", imageInput.current.files[0]);
     try {
       const { data } = await axiosReq.post("posts/", formData);
-      history.push(`/posts/${data.id}`);
+      history.push("/");
     } catch (err) {
       console.log(err);
       if (err.response?.status !== 401) {

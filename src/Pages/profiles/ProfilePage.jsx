@@ -4,6 +4,7 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import { ProfileEditDropdown } from "../../components/DropDown";
+import Btn from "../../styles/Button.module.css"
 import PopularProfiles from "./Profiles";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import logo from "../../Assets/logo.png"
@@ -88,12 +89,14 @@ function ProfilePage() {
             !is_owner &&
             (profile?.following_id ? (
               <Button
+              className={`${Btn.Button} ${Btn.Black}`}
                 onClick={() => handleUnfollow(profile)}
               >
                 unfollow
               </Button>
             ) : (
               <Button
+              className={`${Btn.Button} ${Btn.Black}`}
                 onClick={() => handleFollow(profile)}
               >
                 follow
