@@ -30,7 +30,7 @@ span:hover {
 }
 
 .Scroll {
-  height: 200px;
+  height: 120px;
   overflow-x: hidden;
   overflow-y: auto;
 }
